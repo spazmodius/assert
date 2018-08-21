@@ -2,17 +2,18 @@
 
 const nativeAssert = require('assert')
 const _assert = nativeAssert.strict || nativeAssert
+function noop() {}
 
 let assert, methods
 
 if (process.env.no_assert || process.env.node_env === 'production') {
-	assert = function noop() {}
+	assert = noop
 	methods = {
-		deepEqual: assert,
-		equal: assert,
-		fail: assert,
-		notDeepEqual: assert,
-		notEqual: assert,
+		deepEqual: noop,
+		equal: noop,
+		fail: noop,
+		notDeepEqual: noop,
+		notEqual: noop,
 	}
 }
 else {
