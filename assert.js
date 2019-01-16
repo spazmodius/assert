@@ -9,6 +9,7 @@ const methods = [
 	'fail',
 	'notDeepEqual',
 	'notEqual',
+	'doesNotThrow',
 ]
 
 function defineMethods(obj, getValue) {

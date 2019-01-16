@@ -5,7 +5,7 @@ This module exposes a subset of the [Node.js Assert API](https://nodejs.org/api/
 These assertions become no-ops in environments where either:
 
  - `NODE_ENV=production`
- - `NO_ASSERT=1`
+ - `NO_ASSERT=1` (any non-blank value)
 
 ## Usage
 ``` js
@@ -17,6 +17,7 @@ assert.equal(remaining, 0, 'still some remaining')
 assert.notEqual(text, null, 'text is missing')
 assert.deepEqual(origin, {x:0, y:0}, 'origin is misaligned')
 assert.notDeepEqual(options, {}, 'no options given')
+assert.doesNotThrow(() => JSON.parse(json), SyntaxError, 'invalid JSON')
 ```
 
 ## Note
