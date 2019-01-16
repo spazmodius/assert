@@ -2,30 +2,29 @@
 
 const nativeAssert = require('assert')
 const _assert = nativeAssert.strict || nativeAssert
+
+const methods = [
+	'deepEqual',
+	'equal',
+	'fail',
+	'notDeepEqual',
+	'notEqual',
+]
+
+function defineMethods(obj, getValue) {
+	methods
+		.map(name => ({ name, def: { value: getValue(name), enumerable: true } }))
+		.forEach(({ name, def }) => Object.defineProperty(obj, name, def))
+}
+
 function noop() {}
+defineMethods(noop, () => noop)
+noop.AssertionError = _assert.AssertionError
 
-let assert, methods
-
-if (process.env.no_assert || process.env.node_env === 'production') {
-	assert = noop
-	methods = {
-		deepEqual: noop,
-		equal: noop,
-		fail: noop,
-		notDeepEqual: noop,
-		notEqual: noop,
-	}
-}
-else {
-	assert = _assert.bind()
-	methods = {
-		deepEqual: _assert.deepStrictEqual,
-		equal: _assert.strictEqual,
-		fail: _assert.fail,
-		notDeepEqual: _assert.notDeepStrictEqual,
-		notEqual: _assert.notStrictEqual,
-	}
-}
-
+const assert = _assert.bind()
+defineMethods(assert, name => _assert[name])
 assert.AssertionError = _assert.AssertionError
-module.exports = Object.assign(assert, methods)
+
+const production = process.env.no_assert || process.env.node_env === 'production'
+
+module.exports = production? noop: assert
