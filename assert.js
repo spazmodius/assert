@@ -26,8 +26,11 @@ Object.defineProperties(assert, {
 	AssertionError: { value: _assert.AssertionError, enumerable: true },
 	that: { value: (fn, ...args) => new AssertThat(assert, fn, args), enumerable: true },
 })
-for (const method of methods)
-	Object.defineProperty(assert, method, { value: _assert[method], enumerable: true })
+for (const method of methods) {
+	const strictMethod = method.replace(/Equal/, 'StrictEqual').replace(/equal/, 'strictEqual')
+	const impl = _assert[strictMethod] || _assert[method]
+	Object.defineProperty(assert, method, { value: impl, enumerable: true })
+}
 
 const production = process.env.no_assert || process.env.node_env === 'production'
 module.exports = production? noop: assert
