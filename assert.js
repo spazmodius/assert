@@ -1,5 +1,5 @@
 'use strict'
-const _assert = require('./native-assert')
+const _assert = require('assert').strict || require('assert')
 const AssertThat = require('./that')
 
 const methods = [
@@ -24,7 +24,7 @@ for (const method of methods)
 const assert = _assert.bind()
 Object.defineProperties(assert, {
 	AssertionError: { value: _assert.AssertionError, enumerable: true },
-	that: { value: (fn, ...args) => new AssertThat(fn, args), enumerable: true },
+	that: { value: (fn, ...args) => new AssertThat(assert, fn, args), enumerable: true },
 })
 for (const method of methods)
 	Object.defineProperty(assert, method, { value: _assert[method], enumerable: true })
