@@ -21,16 +21,23 @@ Object.defineProperties(noop, {
 for (const method of methods)
 	Object.defineProperty(noop, method, { value: noop, enumerable: true })
 
-const assert = _assert.bind()
+const ok = require('./lib/ok')(_assert.ok)
+
+// const assert = _assert.bind()
+const assert = ok
 Object.defineProperties(assert, {
 	AssertionError: { value: _assert.AssertionError, enumerable: true },
 	that: { value: (fn, ...args) => new AssertThat(assert, fn, args), enumerable: true },
+	ok: { value: ok, enumerable: true },
 })
-for (const method of methods) {
+for (let method of methods) {
+	if (assert[method]) continue
 	const strictMethod = method.replace(/Equal/, 'StrictEqual').replace(/equal/, 'strictEqual')
-	const impl = _assert[strictMethod] || _assert[method]
+	let impl = _assert[strictMethod] || _assert[method]
 	Object.defineProperty(assert, method, { value: impl, enumerable: true })
 }
+
+
 
 const production = process.env.no_assert || process.env.node_env === 'production'
 module.exports = production? noop: assert
