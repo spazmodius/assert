@@ -23,6 +23,7 @@ for (const method of methods)
 
 const ok = require('./lib/ok')(_assert.ok)
 const fail = require('./lib/fail')(_assert.fail)
+const equal = require('./lib/equal')(_assert.equal)
 
 // const assert = _assert.bind()
 const assert = ok
@@ -31,6 +32,7 @@ Object.defineProperties(assert, {
 	that: { value: (fn, ...args) => new AssertThat(assert, fn, args), enumerable: true },
 	ok: { value: ok, enumerable: true },
 	fail: { value: fail, enumerable: true },
+	equal: { value: equal, enumerable: true },
 })
 for (let method of methods) {
 	if (assert[method]) continue
