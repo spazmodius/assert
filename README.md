@@ -81,9 +81,9 @@ Therefore, this module implements an extension to defer calculation of the `actu
 ### assert.that(_fn, [args...]_).deepEqual(_expected, [message]_)
 ### assert.that(_fn, [args...]_).notDeepEqual(_expected, [message]_)
 
-Evaluates the function `fn`, passing it any arguments `args`, 
-and uses the resulting value 
-as the `actual` argument to the corresponding assertion.
+Calls the function `fn` with any arguments `args`, 
+and passes the return value as the `actual` argument 
+to the corresponding assertion.
 
 For example:
 ```js
@@ -94,7 +94,10 @@ assert.that(isValid, count).ok('count is too large')
 ### assert.that(_fn, [args...]_).throws(_expected, [error], [message]_)
 ### assert.that(_fn, [args...]_).doesNotThrow(_expected, [error], [message]_)
 
-Creates a lambda that calls the function `fn` with any arguments `args`, and passes that lambda as the `actual` argument to the corresponding assertion.
+Creates a lambda that 
+calls the function `fn` with any arguments `args`, 
+and passes that lambda as the `actual` argument 
+to the corresponding assertion.
 
 For example:
 ```js
@@ -105,11 +108,11 @@ assert.that(JSON.parse, json).doesNotThrow(SyntaxError, 'invalid JSON')
 
 In addition to the compatible signatures,
 every assertion method can take additional arguments
-after the `message` arguments.
-These will be inspected and included in the output
+after the `message` argument.
+Representations of these values will be included in the output
 if the assertion throws.
 
-Whenever there are additional information arguments,
-the normally optional `message` argument must be passed.  
+When passing additional information arguments,
+the normally optional `message` argument must also be passed.  
 Passing `undefined` as a placeholder will
 use the assertion's default message.
