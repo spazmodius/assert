@@ -5,10 +5,10 @@ const AssertThat = require('./that')
 const methods = [
 	'ok',
 	'fail',
-	'deepEqual',
 	'equal',
-	'notDeepEqual',
 	'notEqual',
+	'deepEqual',
+	'notDeepEqual',
 	'throws',
 	'doesNotThrow',
 ]
@@ -25,6 +25,8 @@ const ok = require('./lib/ok')(_assert.ok)
 const fail = require('./lib/fail')(_assert.fail)
 const equal = require('./lib/equal')(_assert.equal)
 const notEqual = require('./lib/notEqual')(_assert.notEqual)
+const deepEqual = require('./lib/deepEqual')(_assert.deepEqual)
+const notDeepEqual = require('./lib/notDeepEqual')(_assert.notDeepEqual)
 
 // const assert = _assert.bind()
 const assert = ok
@@ -35,6 +37,8 @@ Object.defineProperties(assert, {
 	fail: { value: fail, enumerable: true },
 	equal: { value: equal, enumerable: true },
 	notEqual: { value: notEqual, enumerable: true },
+	deepEqual: { value: deepEqual, enumerable: true },
+	notDeepEqual: { value: notDeepEqual, enumerable: true },
 })
 for (let method of methods) {
 	if (assert[method]) continue
