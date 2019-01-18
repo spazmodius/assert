@@ -15,7 +15,6 @@ const methods = [
 
 function noop() {}
 Object.defineProperties(noop, {
-	AssertionError: { value: _assert.AssertionError, enumerable: true },
 	that: { value: () => noop, enumerable: true },
 })
 for (const method of methods)
@@ -27,11 +26,12 @@ const equal = require('./lib/equal')(_assert.equal)
 const notEqual = require('./lib/notEqual')(_assert.notEqual)
 const deepEqual = require('./lib/deepEqual')(_assert.deepEqual)
 const notDeepEqual = require('./lib/notDeepEqual')(_assert.notDeepEqual)
+const throws = require('./lib/throws')(_assert.throws)
+const doesNotThrow = require('./lib/doesNotThrow')(_assert.doesNotThrow)
 
 // const assert = _assert.bind()
 const assert = ok
 Object.defineProperties(assert, {
-	AssertionError: { value: _assert.AssertionError, enumerable: true },
 	that: { value: (fn, ...args) => new AssertThat(assert, fn, args), enumerable: true },
 	ok: { value: ok, enumerable: true },
 	fail: { value: fail, enumerable: true },
@@ -39,6 +39,8 @@ Object.defineProperties(assert, {
 	notEqual: { value: notEqual, enumerable: true },
 	deepEqual: { value: deepEqual, enumerable: true },
 	notDeepEqual: { value: notDeepEqual, enumerable: true },
+	throws: { value: throws, enumerable: true },
+	doesNotThrow: { value: doesNotThrow, enumerable: true },
 })
 for (let method of methods) {
 	if (assert[method]) continue
