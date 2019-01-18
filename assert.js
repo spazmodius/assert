@@ -22,6 +22,7 @@ for (const method of methods)
 	Object.defineProperty(noop, method, { value: noop, enumerable: true })
 
 const ok = require('./lib/ok')(_assert.ok)
+const fail = require('./lib/fail')(_assert.fail)
 
 // const assert = _assert.bind()
 const assert = ok
@@ -29,6 +30,7 @@ Object.defineProperties(assert, {
 	AssertionError: { value: _assert.AssertionError, enumerable: true },
 	that: { value: (fn, ...args) => new AssertThat(assert, fn, args), enumerable: true },
 	ok: { value: ok, enumerable: true },
+	fail: { value: fail, enumerable: true },
 })
 for (let method of methods) {
 	if (assert[method]) continue
