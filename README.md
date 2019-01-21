@@ -107,12 +107,12 @@ assert.that(JSON.parse, json).doesNotThrow(SyntaxError, 'invalid JSON')
 ## Advanced Information Output
 
 In addition to the compatible signatures,
-every assertion method can take additional arguments
+every assertion method can take additional **informational arguments**
 after the `message` argument.
-Representations of these values will be included in the output
+Representations of these values will be included in the error message
 if the assertion throws.
+The thrown error will also include a property `info`, an array of the informational arguments.
 
-When passing additional information arguments,
-the normally optional `message` argument must also be passed.  
-Passing `undefined` as a placeholder will
-use the assertion's default message.
+When passing informational arguments,
+the normally optional `message` argument must also be passed.
+Passing `undefined` in its place will use the assertion's default message.
