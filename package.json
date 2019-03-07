@@ -1,6 +1,6 @@
 {
   "name": "@spazmodius/assert",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "debug-only assertions",
   "repository": "github:spazmodius/assert",
   "main": "assert.js"
